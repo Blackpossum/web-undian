@@ -1,0 +1,423 @@
+.machine {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 20px 20px 16px;
+  position: relative;
+}
+
+/* --- Header banner --- */
+.banner {
+  width: min(560px, 100%);
+  height: auto;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  border: 3px solid #fff;
+  outline: 2px solid var(--accent-border);
+}
+
+.machine h1 {
+  margin: 4px 0 0;
+  font-size: 40px;
+  letter-spacing: -1px;
+  color: #fff;
+  /* red outline so the white title stays readable on any background */
+  -webkit-text-stroke: 1.5px var(--accent);
+  text-shadow: 0 2px 6px rgba(196, 48, 43, 0.45);
+}
+
+.subtitle {
+  color: var(--text);
+  margin: 0 0 4px;
+}
+
+/* --- Reels ---
+   --dh (digit/window height) and --dw (window width) drive every reel
+   dimension AND the landing keyframes (via calc), so shrinking them in a
+   media query keeps the slot animation perfectly aligned. */
+.reels {
+  --dh: 104px;
+  --dw: 80px;
+  display: flex;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 20px;
+  background: linear-gradient(160deg, var(--accent), var(--accent-dark));
+  border: 4px solid #fff;
+  box-shadow:
+    var(--shadow),
+    0 0 0 4px var(--gold),
+    inset 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.window {
+  width: var(--dw);
+  height: var(--dh); /* one digit */
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fdfdf7;
+  position: relative;
+  box-shadow:
+    inset 0 6px 12px rgba(0, 0, 0, 0.25),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* fade top and bottom for depth */
+.window::before,
+.window::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 34px;
+  z-index: 2;
+  pointer-events: none;
+}
+.window::before {
+  top: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.35), transparent);
+}
+.window::after {
+  bottom: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.35));
+}
+
+.reel {
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.15, 0.85, 0.25, 1);
+}
+
+/* Each reel stops a bit later than the previous one for a cascade. */
+.r0 {
+  animation-duration: 2.4s;
+}
+.r1 {
+  animation-duration: 2.9s;
+}
+.r2 {
+  animation-duration: 3.4s;
+}
+.r3 {
+  animation-duration: 3.9s;
+}
+
+/* Landing animations: reel scrolls down and stops on the target digit
+   within the final cycle of the strip. distance = (30 + N) * 120px. */
+.land-0 {
+  animation-name: land-0;
+}
+.land-1 {
+  animation-name: land-1;
+}
+.land-2 {
+  animation-name: land-2;
+}
+.land-3 {
+  animation-name: land-3;
+}
+.land-4 {
+  animation-name: land-4;
+}
+.land-5 {
+  animation-name: land-5;
+}
+.land-6 {
+  animation-name: land-6;
+}
+.land-7 {
+  animation-name: land-7;
+}
+.land-8 {
+  animation-name: land-8;
+}
+.land-9 {
+  animation-name: land-9;
+}
+
+@keyframes land-0 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -30));
+  }
+}
+@keyframes land-1 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -31));
+  }
+}
+@keyframes land-2 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -32));
+  }
+}
+@keyframes land-3 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -33));
+  }
+}
+@keyframes land-4 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -34));
+  }
+}
+@keyframes land-5 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -35));
+  }
+}
+@keyframes land-6 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -36));
+  }
+}
+@keyframes land-7 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -37));
+  }
+}
+@keyframes land-8 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -38));
+  }
+}
+@keyframes land-9 {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -39));
+  }
+}
+
+.digit {
+  height: var(--dh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: calc(var(--dh) * 0.6);
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+/* --- Button --- */
+.spin-btn {
+  font-family: var(--heading);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+  border: 3px solid #fff;
+  border-radius: 999px;
+  padding: 15px 60px;
+  cursor: pointer;
+  background: linear-gradient(160deg, var(--accent), var(--accent-dark));
+  box-shadow:
+    var(--shadow),
+    0 0 0 3px var(--accent-border);
+  transition:
+    transform 0.1s ease,
+    filter 0.2s ease;
+}
+.spin-btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+.spin-btn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+.spin-btn:disabled {
+  cursor: not-allowed;
+  filter: grayscale(0.4) brightness(0.9);
+}
+
+.result-label {
+  font-size: 20px;
+  color: var(--text);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  min-height: 40px;
+}
+.result-label.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.result-label strong {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 4px 16px;
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 30px;
+  letter-spacing: 6px;
+  color: #fff;
+  background: linear-gradient(160deg, var(--accent), var(--accent-dark));
+  border: 2px solid var(--gold);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.reset-btn {
+  font-family: var(--heading);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  border: 2px solid var(--accent-border);
+  border-radius: 999px;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+.reset-btn:hover {
+  background: var(--accent-bg);
+}
+
+.remaining {
+  font-size: 15px;
+  color: var(--text);
+  margin: -6px 0 0;
+}
+
+/* --- Drawn history --- */
+.history {
+  width: min(560px, 100%);
+  text-align: center;
+}
+.history-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-h);
+  margin-bottom: 8px;
+}
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.history-list li {
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent-dark);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+/* --- Runner decoration --- */
+.runners {
+  width: min(240px, 60%);
+  height: auto;
+  margin-top: 8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* --- Mobile --- */
+@media (max-width: 640px) {
+  .machine {
+    gap: 14px;
+    padding: 20px 14px 0;
+  }
+
+  .banner {
+    border-width: 2px;
+  }
+
+  .machine h1 {
+    -webkit-text-stroke-width: 1px;
+  }
+
+  /* shrink the whole slot machine — keyframes follow --dh automatically */
+  .reels {
+    --dh: 74px;
+    --dw: 58px;
+    gap: 8px;
+    padding: 14px;
+    border-width: 3px;
+    box-shadow:
+      var(--shadow),
+      0 0 0 3px var(--gold),
+      inset 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .window {
+    border-radius: 9px;
+  }
+
+  .spin-btn {
+    font-size: 19px;
+    padding: 13px 44px;
+  }
+
+  .result-label {
+    font-size: 17px;
+  }
+  .result-label strong {
+    font-size: 24px;
+    letter-spacing: 4px;
+    padding: 3px 12px;
+  }
+
+  .runners {
+    width: min(300px, 78%);
+  }
+}
+
+@media (max-width: 380px) {
+  .reels {
+    --dh: 64px;
+    --dw: 50px;
+    gap: 6px;
+  }
+}
