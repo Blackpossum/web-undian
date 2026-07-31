@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import lotteryTicket from '../lotteryTicket.json'
 import './App.css'
 import { COUNTDOWN_TIMMER } from './constant/constant'
+import CommonFooter from './component/footer/Footer'
 
 const REEL_COUNT = 4
 const STRIP = Array.from({ length: 40 }, (_, i) => i % 10)
@@ -15,17 +16,19 @@ const LAND_DURATIONS = [2200, 2600, 3000, 3300]
 const ALL_TICKETS: string[] = lotteryTicket.lotteryNumber || []
 
 function App() {
+  const timers = useRef<number[]>([])
+  const currentTicket = useRef<string | null>(null)
+
   const [targets, setTargets] = useState<number[]>([0, 0, 0, 0])
   const [spinning, setSpinning] = useState(false)
   const [runId, setRunId] = useState(0)
   const [drawn, setDrawn] = useState<string[]>([])
   // How many reels (left→right) have STARTED landing (drives the reel spin/land
   // class) vs. have FINISHED their landing animation (drives the result).
-  
   const [revealedCount, setRevealedCount] = useState(0)
   const [settledCount, setSettledCount] = useState(0)
-  const timers = useRef<number[]>([])
-  const currentTicket = useRef<string | null>(null)
+
+
 
   // Tickets that haven't been drawn yet.
   const remaining = ALL_TICKETS.filter((t) => !drawn.includes(t))
@@ -119,11 +122,11 @@ function App() {
           </span>
 
           <h1 className="title">
-            Undian Doorprize <em>Jalan Sehat</em>
+            Undian Doorprize <em>Jalan Sehat</em> RT-03 Teras · 
           </h1>
 
           <p className="lede">
-            RT-03 Teras · pengundian nomor peserta empat digit. Setiap nomor
+            pengundian nomor peserta empat digit. Setiap nomor
             hanya keluar satu kali.
           </p>
         </header>
@@ -244,10 +247,16 @@ function App() {
           </section>
         )}
 
-        <footer className="parade" aria-hidden="true">
-          <span className="pm pm-garuda" />
-          <span className="pm pm-rhino" />
-          <span className="pm pm-kasuari" />
+        <footer className="site-footer">
+          <div className="parade" aria-hidden="true">
+            <span className="pm pm-garuda" />
+            <span className="pm pm-rhino" />
+            <span className="pm pm-kasuari" />
+          </div>
+          <CommonFooter
+            title="Kandang Pring Farm"
+            description="Dengan sponsor dari"
+          />
         </footer>
       </div>
     </div>

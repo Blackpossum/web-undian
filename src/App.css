@@ -93,7 +93,7 @@
 
 .machine-card {
   max-width: 640px;
-  padding: 40px 34px 30px;
+  padding: 0px 34px 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -463,13 +463,22 @@
   padding: 5px 12px;
 }
 
+/* ---------- Site footer (parade of mascots + sponsor credit) ---------- */
+.site-footer {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* ---------- Parade footer (the three official mascots) ---------- */
 .parade {
   position: relative;
   width: 100%;
   max-width: 720px;
-  margin-top: auto;
-  padding: 24px 0 18px;
+  padding: 20px 0 16px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -512,6 +521,35 @@
   background-position: calc(var(--w) * -1.9877) calc(var(--w) * -2.0665);
 }
 
+/* gentle staggered walking bob */
+@keyframes parade-walk {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1.5deg);
+  }
+}
+.pm {
+  animation: parade-walk 1.6s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+.pm-garuda {
+  animation-delay: 0s;
+}
+.pm-rhino {
+  animation-delay: 0.35s;
+}
+.pm-kasuari {
+  animation-delay: 0.7s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pm {
+    animation: none;
+  }
+}
+
 /* ---------- Wide screens: one full-height page, two columns ---------- */
 @media (min-width: 860px) {
   .page {
@@ -524,10 +562,10 @@
       'head    head'
       'machine stats'
       'machine history'
-      'parade  parade';
+      'footer  footer';
     align-items: start;
-    gap: 14px 48px;
-    padding: 24px 52px 0;
+    gap: 12px 48px;
+    padding: 22px 52px 0;
   }
 
   .masthead {
@@ -567,11 +605,19 @@
     margin-top: 4px;
   }
 
-  .parade {
-    grid-area: parade;
-    max-width: none;
+  .site-footer {
+    grid-area: footer;
     margin-top: 0;
-    padding-top: 8px;
+    align-self: end;
+  }
+  
+  .parade {
+    max-width: none;
+    padding: 6px 0 10px 0;
+  }
+  /* slightly smaller mascots on wide so the sponsor credit fits one page */
+  .pm {
+    --w: 66px;
   }
 }
 
