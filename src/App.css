@@ -366,8 +366,12 @@
   gap: 20px;
 }
 .stat-card {
+  height: 200px;
   padding: 22px 24px;
   text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   display: flex;
   flex-direction: column;
   gap: 14px;
