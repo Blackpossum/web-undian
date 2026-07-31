@@ -512,6 +512,69 @@
   background-position: calc(var(--w) * -1.9877) calc(var(--w) * -2.0665);
 }
 
+/* ---------- Wide screens: one full-height page, two columns ---------- */
+@media (min-width: 860px) {
+  .page {
+    height: 100svh;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      'head    head'
+      'machine stats'
+      'machine history'
+      'parade  parade';
+    align-items: start;
+    gap: 14px 48px;
+    padding: 24px 52px 0;
+  }
+
+  .masthead {
+    grid-area: head;
+    max-width: none;
+    gap: 10px;
+  }
+  /* trim the header so the whole thing clears the viewport */
+  .title {
+    font-size: clamp(38px, 4.2vw, 60px);
+  }
+  .lede {
+    max-width: 620px;
+  }
+
+  .machine-card {
+    grid-area: machine;
+    max-width: none;
+    align-self: center;
+    justify-self: stretch;
+  }
+  /* wider number display */
+  .reels {
+    --dh: 104px;
+    --dw: 86px;
+  }
+
+  .stats {
+    grid-area: stats;
+    max-width: none;
+    align-self: center;
+  }
+  .history {
+    grid-area: history;
+    max-width: none;
+    align-self: start;
+    margin-top: 4px;
+  }
+
+  .parade {
+    grid-area: parade;
+    max-width: none;
+    margin-top: 0;
+    padding-top: 8px;
+  }
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {
   .page {

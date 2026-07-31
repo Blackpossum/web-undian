@@ -9,6 +9,9 @@ const STRIP = Array.from({ length: 40 }, (_, i) => i % 10)
 // The reels spin for the whole countdown, then reveal the result one box at;
 const SPIN_DURATION = COUNTDOWN_TIMMER
 const REVEAL_STAGGER = 5000
+// How long each reel takes to visually land — MUST match .r0–.r3 in App.css.
+// The Terpilih-Terakhir digit for a reel is shown exactly when it finishes.
+const LAND_DURATIONS = [2200, 2600, 3000, 3300]
 const ALL_TICKETS: string[] = lotteryTicket.lotteryNumber || []
 
 function App() {
@@ -33,16 +36,6 @@ function App() {
     timers.current = []
   }
 
-  // Fired when a reel finishes its landing animation — reveal its digit, and
-  // once the last reel has settled, record the ticket and stop the machine.
-  const onReelSettled = (i: number) => {
-    setSettledCount((c) => Math.max(c, i + 1))
-    if (i === REEL_COUNT - 1) {
-      const ticket = currentTicket.current
-      if (ticket) setDrawn((prev) => [...prev, ticket])
-      setSpinning(false)
-    }
-  }
 
   const spin = () => {
     if (spinning || soldOut) return
@@ -62,16 +55,28 @@ function App() {
     setSpinning(true)
     setRunId((id) => id + 1)
 
-    // After the countdown ends, start landing the reels one after another
-    // (5s apart). Each reel's Terpilih-Terakhir digit — and the final "sudah
-    // keluar" record — are driven off onReelSettled when its landing animation
-    // actually finishes, so the display mirrors the reels exactly.
+    // After the countdown ends, land the reels one after another (5s apart).
+    // For each reel we schedule two moments, mirroring what the eye sees:
+    //   • revealedCount++  → the reel STARTS its landing animation
+    //   • settledCount++   → the reel has FINISHED landing, so its Terpilih
+    //                        digit appears in sync with the reel.
+    // The ticket is recorded as "sudah keluar" only after the last reel settles.
     const startReveal = window.setTimeout(() => {
       for (let i = 0; i < REEL_COUNT; i++) {
-        const id = window.setTimeout(() => {
+        const startId = window.setTimeout(() => {
           setRevealedCount(i + 1)
         }, i * REVEAL_STAGGER)
-        timers.current.push(id)
+
+        const settleId = window.setTimeout(() => {
+          setSettledCount(i + 1)
+          if (i === REEL_COUNT - 1) {
+            const ticket = currentTicket.current
+            if (ticket) setDrawn((prev) => [...prev, ticket])
+            setSpinning(false)
+          }
+        }, i * REVEAL_STAGGER + LAND_DURATIONS[i])
+
+        timers.current.push(startId, settleId)
       }
     }, SPIN_DURATION)
     timers.current.push(startReveal)
@@ -100,7 +105,7 @@ function App() {
       : 'Mulai Mengundi'
 
   return (
-    <div id='page-container' style={{ height: '100px', display:"flex" }}>
+    <div id='page-container' style={{ flex: 1, width: '100%', display: 'flex' }}>
       <div className="page">
         {/* header */}
         <header className="masthead">
@@ -157,11 +162,6 @@ function App() {
                       <div
                         key={`${runId}-${landed}`}
                         className={`reel r${i} ${reelState}`}
-                        onAnimationEnd={(e) => {
-                          if (e.animationName.startsWith('land')) {
-                            onReelSettled(i)
-                          }
-                        }}
                       >
                         {STRIP.map((n, j) => (
                           <div className="digit" key={j}>
