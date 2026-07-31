@@ -18,6 +18,7 @@ function App() {
   const [drawn, setDrawn] = useState<string[]>([])
   // How many reels (left→right) have STARTED landing (drives the reel spin/land
   // class) vs. have FINISHED their landing animation (drives the result).
+  
   const [revealedCount, setRevealedCount] = useState(0)
   const [settledCount, setSettledCount] = useState(0)
   const timers = useRef<number[]>([])
