@@ -1,1 +1,1 @@
-export const COUNTDOWN_TIMMER: number = 9000;
+export const COUNTDOWN_TIMMER: number = 6000;
