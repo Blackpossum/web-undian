@@ -1,115 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #c4302b;
-  --accent-dark: #8e241e;
-  --accent-bg: rgba(196, 48, 43, 0.1);
-  --accent-border: rgba(196, 48, 43, 0.5);
-  --gold: #f4d63a;
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* warm cream editorial palette */
+  --paper: #f7f0e2;
+  --paper-2: #f3e9d6;
+  --card: #fffdf9;
+  --card-soft: #faf3e6;
+  --ink: #2a2320;
+  --ink-soft: #4a3f38;
+  --muted: #a2968a;
+  --line: #ece2d0;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --accent: #b83a2e;
+  --accent-2: #d0453a;
+  --accent-dark: #8f281e;
+  --accent-ink: #9c261d;
+  --accent-bg: rgba(184, 58, 46, 0.08);
+  --accent-border: rgba(184, 58, 46, 0.22);
+  --gold: #d8a233;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
+  --shadow-card: 0 30px 60px -28px rgba(120, 70, 40, 0.35),
+    0 8px 24px -12px rgba(120, 70, 40, 0.18);
+  --shadow-soft: 0 16px 32px -20px rgba(120, 70, 40, 0.4);
+
+  --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Consolas, monospace;
+
+  font: 16px/1.5 var(--sans);
+  color: var(--ink-soft);
+  color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #e5544d;
-    --accent-dark: #b83028;
-    --accent-bg: rgba(229, 84, 77, 0.15);
-    --accent-border: rgba(229, 84, 77, 0.5);
-    --gold: #f4d63a;
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+* {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  background-color: var(--paper);
+  background-image: url('/Gemini_Generated_Image_5qklyg5qklyg5qkl.png');
+  background-size: 900px auto;
+  background-repeat: repeat;
+  background-attachment: fixed;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* soft cream veil so the batik stays subtle behind content */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 50% 0%,
+    rgba(247, 240, 226, 0.55),
+    rgba(247, 240, 226, 0.82) 60%,
+    rgba(243, 233, 214, 0.9)
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+#root {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
+
 p {
   margin: 0;
-}
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
 }

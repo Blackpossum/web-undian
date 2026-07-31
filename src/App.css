@@ -1,88 +1,214 @@
-.machine {
+.page {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  padding: 20px 20px 16px;
+  gap: 26px;
+  padding: 44px 24px 0;
   position: relative;
 }
 
-/* --- Header banner --- */
-.banner {
-  width: min(560px, 100%);
-  height: auto;
-  border-radius: 14px;
-  box-shadow: var(--shadow);
-  border: 3px solid #fff;
-  outline: 2px solid var(--accent-border);
+/* ---------- Masthead ---------- */
+.masthead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 640px;
 }
 
-.machine h1 {
-  margin: 4px 0 0;
-  font-size: 40px;
+/* official HUT RI-81 logo — emblem cropped out of the white-background lockup
+   and set on a small white chip so the crop's white margin blends in */
+.crest {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+.crest-mark {
+  --w: 46px;
+  width: var(--w);
+  aspect-ratio: 0.848;
+  background-image: url('/HUTRI81_FA_Logo__Main Logo Merah Hitam Latar Putih.png');
+  background-repeat: no-repeat;
+  background-size: calc(var(--w) * 2.8393) auto;
+  background-position: calc(var(--w) * -0.4148) calc(var(--w) * -0.4149);
+}
+
+.flag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+}
+.flag {
+  width: 20px;
+  height: 13px;
+  border-radius: 2px;
+  background: linear-gradient(#c0392f 0 50%, #fff 50% 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(40px, 6.4vw, 72px);
+  line-height: 1.02;
   letter-spacing: -1px;
+  color: var(--ink);
+}
+.title em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.lede {
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* ---------- Card base ---------- */
+.card {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  box-shadow: var(--shadow-card);
+}
+
+.machine-card {
+  max-width: 640px;
+  padding: 40px 34px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.chip {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 20px;
+  border-radius: 999px;
+  background: linear-gradient(160deg, var(--accent-2), var(--accent-dark));
   color: #fff;
-  /* red outline so the white title stays readable on any background */
-  -webkit-text-stroke: 1.5px var(--accent);
-  text-shadow: 0 2px 6px rgba(196, 48, 43, 0.45);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  box-shadow: 0 10px 20px -8px rgba(150, 40, 30, 0.6);
 }
 
-.subtitle {
-  color: var(--text);
-  margin: 0 0 4px;
+.machine-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding-top: 22px; /* headroom for the mascot's speech bubble */
 }
 
-/* --- Reels ---
-   --dh (digit/window height) and --dw (window width) drive every reel
-   dimension AND the landing keyframes (via calc), so shrinking them in a
-   media query keeps the slot animation perfectly aligned. */
+/* ---------- Mascot ---------- */
+.mascot-slot {
+  position: relative;
+  flex: 0 0 auto;
+  align-self: stretch;
+  display: flex;
+  align-items: flex-end;
+}
+/* rhino mascot — cropped from its transparent sticker canvas via CSS */
+.mascot {
+  --w: 168px;
+  width: var(--w);
+  aspect-ratio: 0.739;
+  margin-bottom: -6px;
+  background-image: url('/maskot-jalan-sehat-rhino.PNG');
+  background-repeat: no-repeat;
+  background-size: calc(var(--w) * 2.8409) auto;
+  background-position: calc(var(--w) * -0.9545) calc(var(--w) * -1.8629);
+  filter: drop-shadow(0 10px 12px rgba(120, 70, 40, 0.18));
+}
+.bubble {
+  position: absolute;
+  top: 8px;
+  left: -12px;
+  transform: translateY(-100%); /* float fully above the mascot's head */
+  z-index: 3;
+  padding: 10px 14px;
+  border-radius: 16px 16px 16px 4px;
+  background: var(--card-soft);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.15;
+  color: var(--accent);
+}
+
+/* ---------- Reels ---------- */
+.reels-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  flex: 1 1 auto;
+}
 .reels {
-  --dh: 104px;
-  --dw: 80px;
+  --dh: 96px;
+  --dw: 74px;
   display: flex;
   gap: 12px;
-  padding: 18px;
-  border-radius: 20px;
-  background: linear-gradient(160deg, var(--accent), var(--accent-dark));
-  border: 4px solid #fff;
-  box-shadow:
-    var(--shadow),
-    0 0 0 4px var(--gold),
-    inset 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .window {
   width: var(--dw);
-  height: var(--dh); /* one digit */
+  height: var(--dh);
   overflow: hidden;
-  border-radius: 12px;
-  background: #fdfdf7;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fffdf8, #f5ead6);
   position: relative;
   box-shadow:
-    inset 0 6px 12px rgba(0, 0, 0, 0.25),
-    inset 0 -6px 12px rgba(0, 0, 0, 0.25);
+    inset 0 2px 3px rgba(255, 255, 255, 0.9),
+    inset 0 -10px 16px rgba(150, 110, 60, 0.14),
+    0 1px 0 rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--line);
 }
-
-/* fade top and bottom for depth */
+/* depth fades top & bottom */
 .window::before,
 .window::after {
   content: '';
   position: absolute;
   left: 0;
   right: 0;
-  height: 34px;
+  height: 30px;
   z-index: 2;
   pointer-events: none;
 }
 .window::before {
   top: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.35), transparent);
+  background: linear-gradient(rgba(245, 234, 214, 0.95), transparent);
 }
 .window::after {
   bottom: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.35));
+  background: linear-gradient(transparent, rgba(245, 234, 214, 0.95));
 }
 
 .reel {
@@ -92,8 +218,21 @@
   animation-fill-mode: forwards;
   animation-timing-function: cubic-bezier(0.15, 0.85, 0.25, 1);
 }
+/* Continuous scroll while waiting for the countdown to finish. A reel keeps
+   this until it is its turn to land, then swaps to a land-N animation. */
+.reel.spin {
+  animation: spinLoop 0.4s linear infinite;
+  filter: blur(1.6px);
+}
+@keyframes spinLoop {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--dh) * -10));
+  }
+}
 
-/* Each reel stops a bit later than the previous one for a cascade. */
 .r0 {
   animation-duration: 2.4s;
 }
@@ -107,231 +246,201 @@
   animation-duration: 3.9s;
 }
 
-/* Landing animations: reel scrolls down and stops on the target digit
-   within the final cycle of the strip. distance = (30 + N) * 120px. */
-.land-0 {
-  animation-name: land-0;
-}
-.land-1 {
-  animation-name: land-1;
-}
-.land-2 {
-  animation-name: land-2;
-}
-.land-3 {
-  animation-name: land-3;
-}
-.land-4 {
-  animation-name: land-4;
-}
-.land-5 {
-  animation-name: land-5;
-}
-.land-6 {
-  animation-name: land-6;
-}
-.land-7 {
-  animation-name: land-7;
-}
-.land-8 {
-  animation-name: land-8;
-}
-.land-9 {
-  animation-name: land-9;
-}
+.land-0 { animation-name: land-0; }
+.land-1 { animation-name: land-1; }
+.land-2 { animation-name: land-2; }
+.land-3 { animation-name: land-3; }
+.land-4 { animation-name: land-4; }
+.land-5 { animation-name: land-5; }
+.land-6 { animation-name: land-6; }
+.land-7 { animation-name: land-7; }
+.land-8 { animation-name: land-8; }
+.land-9 { animation-name: land-9; }
 
-@keyframes land-0 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -30));
-  }
-}
-@keyframes land-1 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -31));
-  }
-}
-@keyframes land-2 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -32));
-  }
-}
-@keyframes land-3 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -33));
-  }
-}
-@keyframes land-4 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -34));
-  }
-}
-@keyframes land-5 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -35));
-  }
-}
-@keyframes land-6 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -36));
-  }
-}
-@keyframes land-7 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -37));
-  }
-}
-@keyframes land-8 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -38));
-  }
-}
-@keyframes land-9 {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(calc(var(--dh) * -39));
-  }
-}
+@keyframes land-0 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -30)); } }
+@keyframes land-1 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -31)); } }
+@keyframes land-2 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -32)); } }
+@keyframes land-3 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -33)); } }
+@keyframes land-4 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -34)); } }
+@keyframes land-5 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -35)); } }
+@keyframes land-6 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -36)); } }
+@keyframes land-7 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -37)); } }
+@keyframes land-8 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -38)); } }
+@keyframes land-9 { from { transform: translateY(0); } to { transform: translateY(calc(var(--dh) * -39)); } }
 
 .digit {
   height: var(--dh);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--mono);
-  font-size: calc(var(--dh) * 0.6);
+  font-family: var(--serif);
+  font-size: calc(var(--dh) * 0.62);
   font-weight: 700;
-  color: var(--accent-dark);
+  color: var(--accent);
 }
 
-/* --- Button --- */
-.spin-btn {
-  font-family: var(--heading);
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: #fff;
-  border: 3px solid #fff;
-  border-radius: 999px;
-  padding: 15px 60px;
-  cursor: pointer;
-  background: linear-gradient(160deg, var(--accent), var(--accent-dark));
-  box-shadow:
-    var(--shadow),
-    0 0 0 3px var(--accent-border);
-  transition:
-    transform 0.1s ease,
-    filter 0.2s ease;
-}
-.spin-btn:hover:not(:disabled) {
-  filter: brightness(1.1);
-}
-.spin-btn:active:not(:disabled) {
-  transform: scale(0.96);
-}
-.spin-btn:disabled {
-  cursor: not-allowed;
-  filter: grayscale(0.4) brightness(0.9);
+.hint {
+  font-size: 13px;
+  color: var(--muted);
 }
 
-.result-label {
-  font-size: 20px;
-  color: var(--text);
-  opacity: 0;
-  transform: translateY(6px);
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-  min-height: 40px;
-}
-.result-label.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-.result-label strong {
-  display: inline-block;
-  margin-left: 6px;
-  padding: 4px 16px;
-  border-radius: 8px;
-  font-family: var(--mono);
-  font-size: 30px;
-  letter-spacing: 6px;
-  color: #fff;
-  background: linear-gradient(160deg, var(--accent), var(--accent-dark));
-  border: 2px solid var(--gold);
-}
-
+/* ---------- Controls ---------- */
 .controls {
   display: flex;
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 26px;
 }
 
-.reset-btn {
-  font-family: var(--heading);
+.btn {
+  font-family: var(--sans);
   font-size: 15px;
   font-weight: 600;
-  color: var(--accent);
-  background: transparent;
-  border: 2px solid var(--accent-border);
   border-radius: 999px;
-  padding: 10px 22px;
+  padding: 14px 34px;
   cursor: pointer;
   transition:
-    background 0.2s ease,
-    color 0.2s ease;
+    transform 0.12s ease,
+    filter 0.2s ease,
+    background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
-.reset-btn:hover {
-  background: var(--accent-bg);
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.btn:disabled {
+  cursor: not-allowed;
 }
 
-.remaining {
-  font-size: 15px;
-  color: var(--text);
-  margin: -6px 0 0;
+.btn-primary {
+  color: #fff;
+  border: none;
+  background: linear-gradient(160deg, var(--accent-2), var(--accent-dark));
+  box-shadow: 0 16px 26px -12px rgba(150, 40, 30, 0.7);
+}
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+.btn-primary:disabled {
+  filter: grayscale(0.3) brightness(0.96);
+  opacity: 0.9;
 }
 
-/* --- Drawn history --- */
-.history {
-  width: min(560px, 100%);
+.btn-ghost {
+  color: var(--ink-soft);
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--card-soft);
+}
+.btn-ghost:disabled {
+  opacity: 0.5;
+}
+
+.spinner {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #fff;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- Stats ---------- */
+.stats {
+  width: 100%;
+  max-width: 640px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.stat-card {
+  padding: 22px 24px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.stat-frac {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.ticket-out {
+  display: flex;
+  gap: 14px;
+}
+.ticket-digit {
+  flex: 1;
   text-align: center;
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--accent);
+  border-bottom: 3px solid var(--accent-border);
+  padding-bottom: 4px;
+  line-height: 1;
+}
+
+.stat-big {
+  font-family: var(--serif);
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+}
+.progress {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--card-soft);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent-dark));
+  transition: width 0.5s ease;
+}
+
+/* ---------- History ---------- */
+.history {
+  width: 100%;
+  max-width: 640px;
 }
 .history-title {
   display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-h);
-  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
 }
 .history-list {
   list-style: none;
@@ -344,80 +453,115 @@
 }
 .history-list li {
   font-family: var(--mono);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--accent-dark);
   background: var(--accent-bg);
   border: 1px solid var(--accent-border);
-  border-radius: 6px;
-  padding: 4px 10px;
+  border-radius: 8px;
+  padding: 5px 12px;
 }
 
-/* --- Runner decoration --- */
-.runners {
-  width: min(240px, 60%);
-  height: auto;
-  margin-top: 8px;
+/* ---------- Parade footer (the three official mascots) ---------- */
+.parade {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin-top: auto;
+  padding: 24px 0 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(20px, 8vw, 80px);
   pointer-events: none;
   user-select: none;
 }
+/* dotted walking path */
+.parade::before {
+  content: '';
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 14px;
+  border-bottom: 2.5px dashed rgba(201, 162, 90, 0.55);
+}
+.pm {
+  --w: 80px;
+  position: relative;
+  width: var(--w);
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 8px 8px rgba(120, 70, 40, 0.14));
+}
+.pm-garuda {
+  aspect-ratio: 0.858;
+  background-image: url('/maskot-jalan-sehat-garuda.PNG');
+  background-size: calc(var(--w) * 2.6110) auto;
+  background-position: 0 calc(var(--w) * -1.7776);
+}
+.pm-rhino {
+  aspect-ratio: 0.739;
+  background-image: url('/maskot-jalan-sehat-rhino.PNG');
+  background-size: calc(var(--w) * 2.8409) auto;
+  background-position: calc(var(--w) * -0.9545) calc(var(--w) * -1.8629);
+}
+.pm-kasuari {
+  aspect-ratio: 0.705;
+  background-image: url('/maskot-jalan-sehat-kasuari.PNG');
+  background-size: calc(var(--w) * 3.0675) auto;
+  background-position: calc(var(--w) * -1.9877) calc(var(--w) * -2.0665);
+}
 
-/* --- Mobile --- */
+/* ---------- Responsive ---------- */
 @media (max-width: 640px) {
-  .machine {
-    gap: 14px;
-    padding: 20px 14px 0;
+  .page {
+    padding: 30px 16px 0;
+    gap: 22px;
   }
-
-  .banner {
-    border-width: 2px;
+  .machine-card {
+    padding: 34px 18px 26px;
   }
-
-  .machine h1 {
-    -webkit-text-stroke-width: 1px;
+  .machine-body {
+    flex-direction: column;
+    gap: 6px;
   }
-
-  /* shrink the whole slot machine — keyframes follow --dh automatically */
+  .mascot-slot {
+    align-self: center;
+  }
+  .mascot {
+    --w: 140px;
+  }
+  .bubble {
+    left: auto;
+    right: -4px;
+  }
+  .pm {
+    --w: 60px;
+  }
   .reels {
-    --dh: 74px;
-    --dw: 58px;
+    --dh: 66px;
+    --dw: 52px;
     gap: 8px;
-    padding: 14px;
-    border-width: 3px;
-    box-shadow:
-      var(--shadow),
-      0 0 0 3px var(--gold),
-      inset 0 6px 20px rgba(0, 0, 0, 0.35);
   }
-
   .window {
-    border-radius: 9px;
+    border-radius: 12px;
   }
-
-  .spin-btn {
-    font-size: 19px;
-    padding: 13px 44px;
+  .stats {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
-
-  .result-label {
-    font-size: 17px;
-  }
-  .result-label strong {
-    font-size: 24px;
-    letter-spacing: 4px;
-    padding: 3px 12px;
-  }
-
-  .runners {
-    width: min(300px, 78%);
+  .stat-big {
+    font-size: 44px;
   }
 }
 
 @media (max-width: 380px) {
   .reels {
-    --dh: 64px;
-    --dw: 50px;
+    --dh: 58px;
+    --dw: 46px;
     gap: 6px;
+  }
+  .ticket-digit {
+    font-size: 28px;
   }
 }
