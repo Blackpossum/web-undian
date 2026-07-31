@@ -2,17 +2,19 @@ import { useRef, useState } from 'react'
 import lotteryTicket from '../lotteryTicket.json'
 import './App.css'
 import { COUNTDOWN_TIMMER } from './constant/constant'
-import CommonFooter from './component/footer/Footer'
+import FooterSponsorSection from './component/footer/FooterSponsorSection'
+import WinnerModal from './component/winnerModal/WinnerModal'
+import { startTrickle, stopTrickle, playWin } from './audio/sound'
 
 const REEL_COUNT = 4
 const STRIP = Array.from({ length: 40 }, (_, i) => i % 10)
 
 // The reels spin for the whole countdown, then reveal the result one box at;
 const SPIN_DURATION = COUNTDOWN_TIMMER
-const REVEAL_STAGGER = 5000
+const REVEAL_STAGGER = 2000
 // How long each reel takes to visually land — MUST match .r0–.r3 in App.css.
 // The Terpilih-Terakhir digit for a reel is shown exactly when it finishes.
-const LAND_DURATIONS = [2200, 2600, 3000, 3300]
+const LAND_DURATIONS = [1200, 1450, 1650, 1850]
 const ALL_TICKETS: string[] = lotteryTicket.lotteryNumber || []
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
   // class) vs. have FINISHED their landing animation (drives the result).
   const [revealedCount, setRevealedCount] = useState(0)
   const [settledCount, setSettledCount] = useState(0)
+  // The drawn number to celebrate in the winner modal (null = modal closed).
+  const [winner, setWinner] = useState<string | null>(null)
 
 
 
@@ -52,11 +56,15 @@ function App() {
 
     clearTimers()
     currentTicket.current = ticket
+    setWinner(null)
     setTargets(digits)
     setRevealedCount(0)
     setSettledCount(0)
     setSpinning(true)
     setRunId((id) => id + 1)
+
+    // mechanical "trickle" while the machine runs
+    startTrickle()
 
     // After the countdown ends, land the reels one after another (5s apart).
     // For each reel we schedule two moments, mirroring what the eye sees:
@@ -76,6 +84,10 @@ function App() {
             const ticket = currentTicket.current
             if (ticket) setDrawn((prev) => [...prev, ticket])
             setSpinning(false)
+            // stop the trickle, celebrate the result
+            stopTrickle()
+            playWin()
+            if (ticket) setWinner(ticket)
           }
         }, i * REVEAL_STAGGER + LAND_DURATIONS[i])
 
@@ -89,7 +101,9 @@ function App() {
     if (spinning) return
 
     clearTimers()
+    stopTrickle()
     currentTicket.current = null
+    setWinner(null)
     setDrawn([])
     setRunId(0)
     setRevealedCount(0)
@@ -253,14 +267,19 @@ function App() {
             <span className="pm pm-rhino" />
             <span className="pm pm-kasuari" />
           </div>
-          <CommonFooter
+          <FooterSponsorSection
             title="Kandang Pring Farm"
             description="Dengan sponsor dari"
           />
         </footer>
       </div>
+
+      <WinnerModal
+        open={winner !== null}
+        number={winner ?? ''}
+        onClose={() => setWinner(null)}
+      />
     </div>
-    
   )
 }
 

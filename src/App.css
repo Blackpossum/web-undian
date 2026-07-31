@@ -17,24 +17,24 @@
   max-width: 640px;
 }
 
-/* official HUT RI-81 logo — emblem cropped out of the white-background lockup
-   and set on a small white chip so the crop's white margin blends in */
+/* official HUT RI-81 logo — full lockup shown contained (never cropped),
+   on a small white chip so the logo's white background blends in */
 .crest {
   display: inline-flex;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 16px;
   background: #fff;
   border: 1px solid var(--line);
   box-shadow: var(--shadow-soft);
 }
 .crest-mark {
-  --w: 46px;
-  width: var(--w);
-  aspect-ratio: 0.848;
+  --h: 100px;
+  height: var(--h);
+  width: calc(var(--h) * 1.413); /* logo aspect 10675:7557 */
   background-image: url('/HUTRI81_FA_Logo__Main Logo Merah Hitam Latar Putih.png');
   background-repeat: no-repeat;
-  background-size: calc(var(--w) * 2.8393) auto;
-  background-position: calc(var(--w) * -0.4148) calc(var(--w) * -0.4149);
+  background-size: contain;
+  background-position: center;
 }
 
 .flag-badge {
@@ -233,17 +233,18 @@
   }
 }
 
+/* durations MUST match LAND_DURATIONS in App.tsx (reveal-in-sync) */
 .r0 {
-  animation-duration: 2.4s;
+  animation-duration: 1.2s;
 }
 .r1 {
-  animation-duration: 2.9s;
+  animation-duration: 1.45s;
 }
 .r2 {
-  animation-duration: 3.4s;
+  animation-duration: 1.65s;
 }
 .r3 {
-  animation-duration: 3.9s;
+  animation-duration: 1.85s;
 }
 
 .land-0 { animation-name: land-0; }
@@ -555,7 +556,10 @@
 }
 
 /* ---------- Wide screens: one full-height page, two columns ---------- */
-@media (min-width: 860px) {
+/* The one-page two-column layout needs room for the mascot beside the reels,
+   so it only kicks in on large screens. Below this, the responsive stacked
+   layout (single column) is used instead. */
+@media (min-width: 1200px) {
   .page {
     height: 100svh;
     overflow: hidden;
@@ -591,10 +595,13 @@
     align-self: center;
     justify-self: stretch;
   }
-  /* wider number display */
+  /* mascot + wider number display, sized so they fit the left column at 1200px+ */
+  .mascot {
+    --w: 150px;
+  }
   .reels {
-    --dh: 104px;
-    --dw: 86px;
+    --dh: 100px;
+    --dw: 80px;
   }
 
   .stats {

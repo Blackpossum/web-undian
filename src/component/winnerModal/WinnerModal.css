@@ -1,0 +1,101 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(40, 24, 20, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: modal-fade 0.25s ease;
+}
+
+.confetti-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  pointer-events: none;
+}
+
+.winner-modal {
+  position: relative;
+  z-index: 102;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: min(92vw, 560px);
+  padding: 40px 56px;
+  text-align: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow-card);
+  animation: modal-pop 0.38s cubic-bezier(0.2, 1.2, 0.4, 1);
+}
+
+.winner-eyebrow {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--accent);
+}
+
+.winner-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.winner-number {
+  display: flex;
+  gap: 14px;
+}
+
+.winner-digit {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(46px, 11vw, 84px);
+  line-height: 1;
+  color: #fff;
+  background: linear-gradient(160deg, var(--accent-2), var(--accent-dark));
+  border-radius: 16px;
+  padding: 10px 20px;
+  box-shadow: 0 14px 26px -10px rgba(150, 40, 30, 0.6);
+}
+
+.winner-hint {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop,
+  .winner-modal {
+    animation: none;
+  }
+}

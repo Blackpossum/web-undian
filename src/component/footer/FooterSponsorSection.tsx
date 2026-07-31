@@ -2,14 +2,14 @@ import type { ReactNode } from "react";
 
 import './Footer.css'
 
-interface FooterProps {
+interface FooterContentProps {
   className?:string;
   title: string;
   description: string;
   icon?: ReactNode | null;
 };
 
-const CommonFooter = (props:FooterProps) : ReactNode => {
+const FooterSponsorSection = (props:FooterContentProps) : ReactNode => {
   const {description, title, className='footer-container',icon}=props;
   return (
     <div className={className}>
@@ -19,7 +19,7 @@ const CommonFooter = (props:FooterProps) : ReactNode => {
           <p className="title-text">{title}</p>
         </span>
     </div>
-    );
+  );
 };
 
-export default CommonFooter;
+export default FooterSponsorSection;
